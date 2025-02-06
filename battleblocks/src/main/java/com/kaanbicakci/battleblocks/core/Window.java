@@ -14,6 +14,7 @@ public class Window {
     private int width, height;
     private String title;
     private long glfwWindow;
+    public float r = 1f, g = 1f, b = 1f, a = 1f;
 
     private static Window instance = null;
     private static Scene currentScene = null;
@@ -80,27 +81,31 @@ public class Window {
 
         glfwShowWindow(glfwWindow);
         GL.createCapabilities();
+
+        // Load default scene
+        Window.loadScene(0);
     }
 
     public void loop() {
         float beginTime = Time.getTime();
-        float endTime = Time.getTime();
+        float endTime;
+        float deltaTime = -1.0f;
 
         while (!glfwWindowShouldClose(glfwWindow)) {
             // Poll events
             glfwPollEvents();
 
-            glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+            glClearColor(r, g, b, a);
             glClear(GL_COLOR_BUFFER_BIT);
 
-            if (MouseListener.isMouseButtonDown(0)) {
-                System.out.println("Mouse 0 Event");
+            if (deltaTime >= 0) {
+                currentScene.update(deltaTime);
             }
 
             glfwSwapBuffers(glfwWindow);
 
             endTime = Time.getTime();
-            float deltaTime = endTime - beginTime;
+            deltaTime = endTime - beginTime;
             beginTime = endTime;
         }
     }
