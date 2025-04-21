@@ -58,6 +58,9 @@ public class Window {
 
         // Configure GLFW
         glfwDefaultWindowHints();
+
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
         glfwWindowHint(GLFW_MAXIMIZED, GLFW_FALSE);
@@ -114,11 +117,11 @@ public class Window {
         switch (scene) {
             case 0:
                 currentScene = new LevelEditorScene();
-                // currentScene.init();
+                currentScene.init();
                 break;
             case 1:
                 currentScene = new LevelScene();
-                // currentScene.init();
+                currentScene.init();
                 break;
             default:
                 assert false : "Unable to load scene index " + scene;
